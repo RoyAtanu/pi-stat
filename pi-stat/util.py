@@ -1,4 +1,5 @@
 import re, subprocess
+import psutil
  
 def check_GPU_temp():
     temp = 0
@@ -18,3 +19,9 @@ def check_CPU_temp():
     if not err:
         temp = float(msg)/1000
     return temp
+
+def check_CPU_used():
+    return psutil.cpu_percent(percpu=True)
+
+def check_RAM_used():
+    return psutil.virtual_memory().percent

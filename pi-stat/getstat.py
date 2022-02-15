@@ -1,46 +1,49 @@
-import util, os, time
+import measurement, os, time
 from datetime import datetime
+from decouple import config
 import influxdb_client
 from influxdb_client.client.write_api import SYNCHRONOUS
 
-URL = 'http://localhost:8086'
-TOKEN = 'opensecret'
-ORG = 'pi'
-BUCKET = 'pistat'
-
-INTERVAL = 5
-
-
 def start_monitor():
+    influx_org = config('PISTAT_INFLUX_ORG')
+    influx_bucket = config('PISTAT_INFLUX_BUCKET')
+
     client = influxdb_client.InfluxDBClient(
-        url=URL,
-        token=TOKEN,
-        org=ORG
+        url=config('PISTAT_INFLUX_URL'),
+        token=config('PISTAT_INFLUX_TOKEN'),
+        org=influx_org
     )
     write_api = client.write_api(write_options=SYNCHRONOUS)
 
-    cputemp = util.check_CPU_temp()
-    gputemp = util.check_GPU_temp()
+    temperature = measurement.get_temperature()
+    cpu = measurement.get_cpu()
+    ram = measurement.get_ram()
     json_body = [
         {
             "measurement": "temperature",
-            "tags": {
-                "source": "pi"
-            },
-            "fields": {
-                "cputemp": cputemp,
-                "gputemp": gputemp
-            }
+            "tags": {"source": "pi"},
+            "fields": temperature
+        },
+        {
+            "measurement": "cpu",
+            "tags": {"source": "pi"},
+            "fields": cpu
+        },
+        {
+            "measurement": "ram",
+            "tags": {"source": "pi"},
+            "fields": ram
         }
     ]
-    write_api.write(bucket=BUCKET, org=ORG, record=json_body)
+    write_api.write(bucket=influx_bucket, org=influx_org, record=json_body)
 
     print('record inserted at : ' + str(datetime.now()))
 
 def main():
+    interval = int(config('PISTAT_INTERVAL'))
     while True:
         start_monitor()
-        time.sleep(INTERVAL)
+        time.sleep(interval)
 
 if __name__ == "__main__":
     main()

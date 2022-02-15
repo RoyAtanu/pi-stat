@@ -3,3 +3,6 @@
 config/
 data/
 */__pycache__
+
+# files
+.env
