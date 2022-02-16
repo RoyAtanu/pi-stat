@@ -4,6 +4,19 @@ pi-stat is a tool to collect Raspberry Pi health metric (temperature, CPU and RA
 
 ![grafana dashboard](blob/image/pi-stat-dashboard.png)
 
+### Stats monitored
+- Temperature
+    - CPU Temperature
+    - GPU Temperature
+- CPU
+    - Usage per core
+- RAM
+    - RAM usage
+    - Swap memory usage
+- Network
+    - Bytes sent per second
+    - Bytes received per second
+
 ---
 
 ## How to use it
