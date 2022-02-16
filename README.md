@@ -35,4 +35,4 @@ The project was built and tested using below
 - if configurations are correct, pi-stat utility should start pushing metrics to Influx DB. Keep the console running
 - Open Grafana instance and login
 - add a new InfluxDB data source and point it to running InfluxDB instance
-- create a new dashboard but copying `dashboard.json` into grafana dashboard settings (you might need to adjust the datasource)
+- create a new dashboard by importing `dashboard.json` and select the InfluxDB datasource on the dashboard variable
