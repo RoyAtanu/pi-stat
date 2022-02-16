@@ -19,4 +19,12 @@ def get_cpu():
 def get_ram():
     fields = {}
     fields['ramused'] = util.check_RAM_used()
+    fields['swapused'] = util.check_SWAP_used()
+    return fields
+
+def get_network():
+    bytesent, bytereceived = util.check_network_io()
+    fields = {}
+    fields['bytesent'] = bytesent
+    fields['bytereceived'] = bytereceived
     return fields

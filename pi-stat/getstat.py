@@ -18,6 +18,7 @@ def start_monitor():
     temperature = measurement.get_temperature()
     cpu = measurement.get_cpu()
     ram = measurement.get_ram()
+    network = measurement.get_network()
     json_body = [
         {
             "measurement": "temperature",
@@ -33,6 +34,11 @@ def start_monitor():
             "measurement": "ram",
             "tags": {"source": "pi"},
             "fields": ram
+        },
+        {
+            "measurement": "network",
+            "tags": {"source": "pi"},
+            "fields": network
         }
     ]
     write_api.write(bucket=influx_bucket, org=influx_org, record=json_body)

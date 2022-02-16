@@ -1,5 +1,6 @@
 import re, subprocess
 import psutil
+import time
  
 def check_GPU_temp():
     temp = 0
@@ -25,3 +26,14 @@ def check_CPU_used():
 
 def check_RAM_used():
     return psutil.virtual_memory().percent
+
+def check_SWAP_used():
+    return psutil.swap_memory().percent
+
+def check_network_io():
+    io1 = psutil.net_io_counters(nowrap=True)
+    time.sleep(1)
+    io2 = psutil.net_io_counters(nowrap=True)
+    bytesent = io2.bytes_sent - io1.bytes_sent
+    bytereceived = io2.bytes_recv - io1.bytes_recv
+    return bytesent, bytereceived
