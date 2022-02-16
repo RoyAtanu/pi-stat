@@ -22,16 +22,10 @@ The project was built and tested using below
 - run InfluxDB and Grafana (using any of the below approach)
     - locally installed on Pi OS
     - via Docker containers
-- open influx shell and create a new bucket by running below
-    ```
-    create database pistat
-    show databases
-    ```
+- open influx shell and create a new bucket by running below `create database pistat`
 - copy `.env.sample` file to `.env` and set the values as applicable
-- go to `pi-stat` folder via console and run
-    ```
-    python3 getstat.py
-    ```
+- run `pip3 install -r requirements.txt` to install the required python packages
+- go to `pi-stat` folder via console and run `python3 getstat.py`
 - if configurations are correct, pi-stat utility should start pushing metrics to Influx DB. Keep the console running
 - Open Grafana instance and login
 - add a new InfluxDB data source and point it to running InfluxDB instance
