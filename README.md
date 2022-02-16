@@ -17,11 +17,11 @@ The project was built and tested using below
 - Raspberry Pi 4B board with 8GB RAM
 - Raspbian GNU/Linux 10 (buster) 32 bit OS
 
-## How to use it
+### Instructions
 - clone the repo into pi folder system
 - run InfluxDB and Grafana (using any of the below approach)
     - locally installed on Pi OS
-    - via Docker containers
+    - via Docker containers (run `./start-docker.sh` if you have docker installed)
 - open influx shell and create a new bucket by running below `create database pistat`
 - copy `.env.sample` file to `.env` and set the values as applicable
 - run `pip3 install -r requirements.txt` to install the required python packages
