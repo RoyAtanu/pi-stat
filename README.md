@@ -21,7 +21,7 @@ pi-stat is a tool to collect Raspberry Pi health metric (temperature, CPU and RA
 
 ## How to use it
 ### Prerequisites
-- Docker engine and CLI (if you want to run InfuxDB and Grafana via docker)
+- Docker engine, CLI and docker-compose (if you want to run InfuxDB and Grafana via docker)
 - Python3 and Pip3
 - Raspberry Pi (of course!)
 
@@ -34,11 +34,11 @@ The project was built and tested using below
 - clone the repo into pi folder system
 - run InfluxDB and Grafana (using any of the below approach)
     - locally installed on Pi OS
-    - via Docker containers (run `./start-docker.sh` if you have docker installed)
-- open influx shell and create a new bucket by running below `create database pistat`
+    - via Docker containers (run `docker-compose -f docker-compose.yaml -d` if you have docker-compose installed)
+- [if installed without docker-compose] open influx shell and create a new bucket by running below `create database pistat`
 - copy `.env.sample` file to `.env` and set the values as applicable
 - run `pip3 install -r requirements.txt` to install the required python packages
-- go to `pi-stat` folder via console and run `python3 getstat.py`
+- run `python3 pi-stat/getstat.py`
 - if configurations are correct, pi-stat utility should start pushing metrics to Influx DB. Keep the console running
 - Open Grafana instance and login
 - add a new InfluxDB data source and point it to running InfluxDB instance

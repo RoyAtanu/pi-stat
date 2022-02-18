@@ -1,0 +1,29 @@
+version: '3'
+services:
+
+  influxdb:
+    image: influxdb:1.8
+    restart: always
+    volumes:
+      - influxdb:/var/lib/influxdb
+    ports:
+      - "8083:8083"
+      - "8086:8086"
+    environment:
+      - INFLUXDB_ADMIN_USER=piuser
+      - INFLUXDB_ADMIN_PASSWORD=pipassword
+      - INFLUXDB_DB=pistat
+
+  grafana:
+    image: grafana/grafana-oss
+    restart: always
+    depends_on:
+      - influxdb
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana:/var/lib/grafana
+
+volumes:
+  grafana:
+  influxdb:

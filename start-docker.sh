@@ -1,16 +1,14 @@
 #!/bin/bash
 
+# if you don't have docker-compose installed, use this script to run influxdb ang grafana docker containers
+
 sudo docker run -d \
       -p 8086:8086 \
       -v $PWD/data:/var/lib/influxdb2 \
       -v $PWD/config:/etc/influxdb2 \
-      -e DOCKER_INFLUXDB_INIT_MODE=setup \
-      -e DOCKER_INFLUXDB_INIT_USERNAME=piuser \
-      -e DOCKER_INFLUXDB_INIT_PASSWORD=pipassword \
-      -e DOCKER_INFLUXDB_INIT_ORG=pi \
-      -e DOCKER_INFLUXDB_INIT_BUCKET=pistat \
-      -e DOCKER_INFLUXDB_INIT_RETENTION=1w \
-      -e DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=opensecret \
+      -e INFLUXDB_ADMIN_USER=piuser \
+      -e INFLUXDB_ADMIN_PASSWORD=pipassword \
+      -e INFLUXDB_DB=pistat \
       --name=influxdb \
       influxdb:1.8
 
